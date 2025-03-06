@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Section Responsive</title>
+  <style>
+    /* Estilos base (mobile-first) */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      position: relative;
+      z-index: 0;
+      /* Permitir scroll en caso de que el contenido exceda el alto */
+      overflow-y: auto;
+    }
+    /* Imagen de fondo con overlay y difuminado */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('http://www.suhistoria.es/wp-content/uploads/2025/03/20250305-Casa-Virtudes-de-Maquinas-y-Datos14.jpg') no-repeat center center;
+      background-size: cover;
+      filter: blur(2px);
+      z-index: -1;
+    }
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    /* Hero sin forzar 100vh para móviles */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 10px;
+      width: 100%;
+    }
+    .antetitle {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      font-style: italic;
+      font-weight: bold;
+    }
+    h1 {
+      margin: 0;
+      line-height: 1.2;
+      word-wrap: break-word;
+    }
+    .static-title {
+      font-size: 2.2rem;
+      color: white;
+      white-space: normal;
+    }
+    .dynamic-title {
+      display: block;
+      font-size: 1.3rem;
+      position: relative;
+      min-height: 1.5em;
+      overflow: hidden;
+      white-space: normal;
+    }
+    .dynamic-title span {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%) translateY(100%);
+      color: #F0B26C;
+      opacity: 0;
+      transition: all 0.5s ease;
+      line-height: 1.2;
+      white-space: normal;
+    }
+    .dynamic-title span.active {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    p {
+      font-size: 0.9rem;
+      max-width: 90%;
+      margin: 10px auto;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .button.outline {
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+    .button.white {
+      background-color: white;
+      color: black;
+      border: none;
+    }
+    
+    /* Estilos para pantallas más grandes */
+    @media (min-width: 600px) {
+      .container { padding: 20px; }
+      .hero {
+         padding: 80px 20px;
+         min-height: 100vh;
+      }
+      .antetitle {
+         font-size: 1.2rem;
+         margin-bottom: 20px;
+      }
+      .static-title {
+         font-size: 6rem;
+         white-space: nowrap;
+      }
+      .dynamic-title {
+         font-size: 3rem;
+         min-height: 60px;
+         white-space: nowrap;
+      }
+      p {
+         font-size: 1.25rem;
+         max-width: 600px;
+         margin: 40px auto 20px;
+      }
+      .buttons {
+         flex-direction: row;
+         gap: 15px;
+         margin-top: 30px;
+      }
+      .button {
+         padding: 10px 20px;
+         font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="antetitle">
+        Grandes almacenes de inteligencia artificial
+      </div>
+      <div style="margin-top: 20px; width: 100%;">
+        <h1>
+          <span class="static-title">Casa Virtudes es</span>
+          <span class="dynamic-title" id="dynamic-title"></span>
+        </h1>
+        <p>
+          Asesoría en la utilización de herramientas de inteligencia artificial en su negocio. Mejora de procesos. Productos sencillos que permiten ahorrar tiempo y recursos. Servicio personalizado y cercano.
+        </p>
+      </div>
+      <div class="buttons">
+        <a href="https://sites.google.com/view/casa-virtudes/inicio/qui%C3%A9nes-somos" class="button outline">Conócenos</a>
+        <a href="https://sites.google.com/view/casa-virtudes/inicio/servicio" class="button white">¿Hablamos?</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const titles = [
+      "innovación y tradición",
+      "experiencia y aprendizaje",
+      "inteligencia y sentido común",
+      "tecnología y creatividad",
+      "una solución y un nuevo reto"
+    ];
+    const dynamicTitle = document.getElementById("dynamic-title");
+    titles.forEach((title, index) => {
+      const span = document.createElement("span");
+      span.textContent = title;
+      if (index === 0) span.classList.add("active");
+      dynamicTitle.appendChild(span);
+    });
+    
+    let currentIndex = 0;
+    setInterval(() => {
+      const spans = dynamicTitle.getElementsByTagName("span");
+      spans[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % titles.length;
+      spans[currentIndex].classList.add("active");
+    }, 2600);
+  </script>
+</body>
+</html>
